@@ -13,7 +13,9 @@
     <div v-else>
       <button @click="registering=false" :class="!registering ? '' : 'button-clear'">Zaloguj się</button>
       <button @click="registering=true" :class="registering ? '' : 'button-clear'">Zarejestruj się</button>
-      <login-form @login="login($event)"></login-form>
+      <div v-if="message">{{message}}</div>
+      <login-form @login="login($event)" v-if="registering==false"></login-form>
+      <login-form @login="register($event)" v-if="registering==true" button-label="Zarejestruj się"></login-form>
     </div>
   </div>
 </template>
@@ -28,7 +30,8 @@
         data() {
             return {
               registering: false,
-              authenticatedUsername: ""
+              authenticatedUsername: "",
+              message:"",
             };
         },
         methods: {
@@ -38,11 +41,15 @@
             logout() {
                 this.authenticatedUsername = '';
             },
-            switchButtonColor(registering){
-              if(registering=false){
-
-              }
-            }
+          register(user) {
+            this.$http.post('participants', user)
+                .then(response => {
+                  this.message="Udało się";
+                })
+                .catch(response => {
+                  this.message="Nie Udało się"
+                });
+          }
         }
     };
 </script>
