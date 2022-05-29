@@ -11,6 +11,8 @@
       <meetings-page :username="authenticatedUsername"></meetings-page>
     </div>
     <div v-else>
+      <button @click="registering=false" :class="!registering ? '' : 'button-clear'">Zaloguj się</button>
+      <button @click="registering=true" :class="registering ? '' : 'button-clear'">Zarejestruj się</button>
       <login-form @login="login($event)"></login-form>
     </div>
   </div>
@@ -25,7 +27,8 @@
         components: {LoginForm, MeetingsPage},
         data() {
             return {
-                authenticatedUsername: ""
+              registering: false,
+              authenticatedUsername: ""
             };
         },
         methods: {
@@ -34,6 +37,11 @@
             },
             logout() {
                 this.authenticatedUsername = '';
+            },
+            switchButtonColor(registering){
+              if(registering=false){
+
+              }
             }
         }
     };
