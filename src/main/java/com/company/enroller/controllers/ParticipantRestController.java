@@ -17,8 +17,6 @@ public class ParticipantRestController {
     @Autowired
     ParticipantService participantService;
 
-
-
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<?> getAll() {
         Collection<Participant> participants = participantService.getAll();
